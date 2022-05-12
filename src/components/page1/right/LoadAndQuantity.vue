@@ -1,26 +1,38 @@
 <template>
     <div class="load_and_quantity">
         <div>
-            <div style="color: #633EC4;font-weight: bold;margin-top: 0.1rem;margin-left: 0.4rem">负载</div>
-            <div style="color:#C00000;font-weight: bold;margin-top: 0.1rem;margin-left: 0.4rem">电量</div>
+            <div class="font">负载</div>
+            <div class="font" style="color: red">电量</div>
         </div>
         <div class="clear"></div>
-        <div id="load" style="width: 0.3rem;height: 1.2rem;margin-top: -0.2rem;margin-left: 0.33rem;float: left"></div>
-        <div id="quantity" style="width: 0.2rem;height: 1.2rem;margin-top: -0.2rem;margin-left: 0.32rem;float: left"></div>
+        <div id="load" class="chart"></div>
+        <div id="quantity" class="chart"></div>
     </div>
 </template>
 
 <script>
 export default {
     name: "LoadAndQuantity",
+    data(){
+        return{
+            powerData:{
+                data1:50,
+                data2:30
+            }
+        }
+    },
     methods: {
-        echartsInit1(){
+        echartsInit1(data){
+            if (document.getElementById('load') == null) {
+                return
+            }
+            this.$echarts.dispose(document.getElementById('load'))
             var myChart = this.$echarts.init(document.getElementById('load'));
             //配置图表
             // Generate data
             let category = ['left','right'];
             let max = [100,100];
-            let lineData = [50,50];
+            let lineData = [data,data];
             // option
             var option = {
                 // backgroundColor: '#0f375f',
@@ -64,13 +76,17 @@ export default {
             };
             myChart.setOption(option);
         },
-        echartsInit2() {
+        echartsInit2(data) {
+            if (document.getElementById('quantity') == null) {
+                return
+            }
+            this.$echarts.dispose(document.getElementById('quantity'))
             var myChart = this.$echarts.init(document.getElementById('quantity'));
             //配置图表
             // Generate data
             let category = ['power'];
             let max = [100];
-            let lineData = [50];
+            let lineData = [data];
             // option
             var option = {
                 xAxis: {
@@ -113,10 +129,18 @@ export default {
             };
             myChart.setOption(option);
         },
+        echartsInitAll(){
+            this.echartsInit1(this.powerData.data1);
+            this.echartsInit2(this.powerData.data2);
+        }
     },
-    mounted(){
-        this.echartsInit1();
-        this.echartsInit2();
+    sockets: {
+        /* 监听消息事件 */
+        powerData:function(data){
+            console.log("data 数据返回 = >", data);
+            this.powerData = data;
+            this.echartsInitAll()
+        },
     },
 }
 </script>
@@ -128,5 +152,19 @@ export default {
     font-size: 0.08rem;
     width: 100%;
     height: 100%;
+}
+.font{
+    color: #633EC4;
+    font-weight: bold;
+    margin-top: 0.1rem;
+    margin-left: 0.4rem;
+    float:left;
+}
+.chart{
+    width: 0.2rem;
+    height: 1rem;
+    margin-top: -0.15rem;
+    margin-left: 0.38rem;
+    float: left
 }
 </style>

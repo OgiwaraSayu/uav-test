@@ -15,21 +15,29 @@
 <script>
 export default {
     data(){
-      return{
-          data:[10,20,10,20,30,40,10]
-      }
+        return{
+            frequencyData:{
+                data1:[],
+                data2:[],
+                data3:[]
+            }
+        }
     },
+
     methods: {
-        echartsInit(){
-            var myChart1 = this.$echarts.init(document.getElementById('frequency1'));
-            var myChart2 = this.$echarts.init(document.getElementById('frequency2'));
-            var myChart3 = this.$echarts.init(document.getElementById('frequency3'));
+        echartsInit(elementId, data){
+            // var myChart;
+            if (document.getElementById(elementId) == null) {
+                return
+            }
+            this.$echarts.dispose(document.getElementById(elementId));
+            var myChart = this.$echarts.init(document.getElementById(elementId));
             //配置图表
             var option = {
                 backgroundColor:'#01133B',
                 xAxis: {
                     type: 'category',
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    data: [0,1,2,3,4,5,6,7,8,9],
                     axisLabel:{
                         show: false
                     },
@@ -59,7 +67,7 @@ export default {
                 },
                 series: [
                     {
-                        data: this.data,
+                        data: data,
                         type: 'bar',
                         barWidth:'10',
                         // barGap: '-100%',
@@ -80,14 +88,27 @@ export default {
                     bottom:"0px"
                 }
             };
-            myChart1.setOption(option);
-            myChart2.setOption(option);
-            myChart3.setOption(option);
+            myChart.setOption(option);
+            // myChart.resize();
+        },
+        echartsInitAll(){
+            this.echartsInit('frequency1',this.frequencyData.data1)
+            this.echartsInit('frequency2',this.frequencyData.data2)
+            this.echartsInit('frequency3',this.frequencyData.data3)
+        }
+    },
+    sockets: {
+        /* 监听消息事件 */
+        frequencyData:function(data){
+            // console.log("data 数据返回 = >", data);
+            this.frequencyData = data;
+            this.echartsInitAll()
         },
     },
     mounted() {
-        this.echartsInit();
+        this.echartsInitAll()
     }
+
 }
 </script>
 
@@ -109,8 +130,8 @@ export default {
     /*margin-top: 0.05rem;*/
 }
 .chart{
-    width:85%;
-    height: 20%;
+    width:80%;
+    height: 18%;
     margin-left: 0.05rem
 }
 </style>

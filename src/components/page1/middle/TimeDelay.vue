@@ -1,6 +1,6 @@
 <template>
     <div class="delay">
-        <div class="title">任务端端时延</div>
+        <div class="title">9种任务端端时延</div>
         <div class="chart" id="delay1"></div>
         <div class="chart" id="delay2"></div>
         <div class="chart" id="delay3"></div>
@@ -9,6 +9,7 @@
         <div class="chart" id="delay6"></div>
         <div class="chart" id="delay7"></div>
         <div class="chart" id="delay8"></div>
+        <div class="chart" id="delay9"></div>
     </div>
 </template>
 
@@ -16,12 +17,18 @@
 export default {
     data(){
         return{
-            data1: [0,5,2,1,6,8,4,1,7,6,5,0],
-            data2: [0,5,1,2,7,4,1,4,5,7,3,6]
+            relayData:{
+                data1: [],
+                data2: []
+            }
         }
     },
     methods:{
-        chartInit(elementid,data,lineColor,nodeColor,bgColor){
+        echartsInit(elementid,data,lineColor,nodeColor,bgColor){
+            if (document.getElementById(elementid) == null) {
+                return
+            }
+            this.$echarts.dispose(document.getElementById(elementid))
             var myChart = this.$echarts.init(document.getElementById(elementid));
             var option = {
                 xAxis: {
@@ -37,7 +44,7 @@ export default {
                     {
                         data: data,
                         type: 'line',
-                        smooth: true,
+                        smooth: 0.3,
                         lineStyle:{
                             // color:'#366BA9'
                             color:lineColor
@@ -71,17 +78,29 @@ export default {
                 },
             };
             myChart.setOption(option)
+        },
+        echartsInitAll(){
+            this.echartsInit('delay1',this.relayData.data1,'#366BA9','#269BFF','#194585')
+            this.echartsInit('delay3',this.relayData.data1,'#366BA9','#269BFF','#194585')
+            this.echartsInit('delay5',this.relayData.data1,'#366BA9','#269BFF','#194585')
+            this.echartsInit('delay7',this.relayData.data1,'#366BA9','#269BFF','#194585')
+            this.echartsInit('delay9',this.relayData.data1,'#366BA9','#269BFF','#194585')
+            this.echartsInit('delay2',this.relayData.data2,'#17FEB8','#1EFDB8','#106668')
+            this.echartsInit('delay4',this.relayData.data2,'#17FEB8','#1EFDB8','#106668')
+            this.echartsInit('delay6',this.relayData.data2,'#17FEB8','#1EFDB8','#106668')
+            this.echartsInit('delay8',this.relayData.data2,'#17FEB8','#1EFDB8','#106668')
         }
     },
+    sockets: {
+        /* 监听消息事件 */
+        relayData:function(data){
+            // console.log("data 数据返回 = >", data);
+            this.relayData = data;
+            this.echartsInitAll()
+        },
+    },
     mounted() {
-        this.chartInit('delay1',this.data1,'#366BA9','skyblue','skyblue')
-        this.chartInit('delay3',this.data1,'#366BA9','skyblue','skyblue')
-        this.chartInit('delay5',this.data1,'#366BA9','skyblue','skyblue')
-        this.chartInit('delay7',this.data1,'#366BA9','skyblue','skyblue')
-        this.chartInit('delay2',this.data2,'#17FEB8','lightgreen','lightgreen')
-        this.chartInit('delay4',this.data2,'#17FEB8','lightgreen','lightgreen')
-        this.chartInit('delay6',this.data2,'#17FEB8','lightgreen','lightgreen')
-        this.chartInit('delay8',this.data2,'#17FEB8','lightgreen','lightgreen')
+        this.echartsInitAll()
     }
 }
 </script>
@@ -104,7 +123,7 @@ export default {
 .chart{
     width: 90%;
     margin-left: 5%;
-    height: 10%;
+    height: 8.5%;
     margin-top: 0.5%;
 }
 </style>
