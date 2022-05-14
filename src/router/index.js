@@ -9,6 +9,7 @@ export default new Router({
     routes: [
         {
             path: '/',
+            redirect:'/node',
             component: () => import('../pages/MainPage'),
             children:[
                 {
@@ -19,11 +20,15 @@ export default new Router({
                     path: '/data',
                     component: () => import('../pages/DataStream')
                 },
+                {
+                    path: '/service',
+                    component: () => import('../pages/DataService')
+                }
             ]
         },
         // {
-        //     path: '/data',
-        //     component: () => import('../pages/DataStream')
+        //     path: '/hello',
+        //     component: () => import('../components/test')
         // },
 
     ]

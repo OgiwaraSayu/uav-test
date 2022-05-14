@@ -1,8 +1,14 @@
 <template>
     <div class="load_and_quantity">
         <div>
-            <div class="font">负载</div>
-            <div class="font" style="color: red">电量</div>
+            <div class="font">
+                <p>负载</p>
+                <p>{{powerData.data1}}%</p>
+            </div>
+            <div class="font" style="color: red">
+                <p>电量</p>
+                <p>{{powerData.data2}}%</p>
+            </div>
         </div>
         <div class="clear"></div>
         <div id="load" class="chart"></div>
@@ -43,6 +49,7 @@ export default {
                 yAxis: {
                     show: false,
                 },
+                animation:false,
                 series: [
                     {
                         name: 'dotted',
@@ -96,6 +103,7 @@ export default {
                 yAxis: {
                     show: false,
                 },
+                animation:false,
                 series: [
                     {
                         name: 'dotted',

@@ -20,7 +20,7 @@ export default {
             relayData:{
                 data1: [],
                 data2: []
-            }
+            },
         }
     },
     methods:{
@@ -40,6 +40,7 @@ export default {
                     type: 'value',
                     show: false
                 },
+                animation:false,
                 series: [
                     {
                         data: data,
@@ -100,7 +101,7 @@ export default {
         },
     },
     mounted() {
-        this.echartsInitAll()
+        this.echartsInitAll();
     }
 }
 </script>

@@ -1,6 +1,14 @@
 <template>
     <div class="node">
         <div class="top_left">
+            <el-switch
+                v-model="switchValue"
+                active-text="定时器开"
+                style="position: absolute;margin-left:0.55rem;margin-top: -0.15rem"
+                :width="width"
+                @change = "switch_on_off(switchValue)"
+            >
+            </el-switch>
             <p style="margin-left: 0">节点ID</p>
 <!--            <p style="text-align: center;background-color: purple">-->
 <!--                <el-select v-model="defaultValue" @change="getData(defaultValue)"-->
@@ -63,6 +71,9 @@ export default {
                 frequency:'',
                 cluster:''
             },
+            width:50,
+            timer:"",
+            switchValue:true
         }
     },
     // mounted(){
@@ -82,15 +93,37 @@ export default {
     methods:{
         getNodeInformation(id){
             console.log(id)
-            console.log("get data",id);
+            console.log("get page1 data",id);
             this.$global.defaultId=id;
             // /* 发送数据到服务器 */
-            this.$socket.emit('get data',id);
+            this.$socket.emit('get page1 data',id);
         },
+        switch_on_off(switchValue){
+            if(switchValue){
+                this.timer = setInterval(()=>{
+                    this.getNodeInformation(this.defaultValue)
+                },2000)
+            }else {
+                clearInterval(this.timer)
+            }
+        }
     },
     created() {
         this.defaultValue = this.$global.defaultId;
         this.getNodeInformation(this.defaultValue)
+    },
+    mounted() {
+        if(this.timer){
+            clearInterval(this.timer)
+        }
+        else {
+            this.timer = setInterval(()=>{
+                this.getNodeInformation(this.defaultValue)
+            },2000)
+        }
+    },
+    destroyed() {
+        clearInterval(this.timer)
     }
 }
 </script>

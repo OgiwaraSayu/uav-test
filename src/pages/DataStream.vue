@@ -60,8 +60,6 @@ export default {
     margin-top: 0;
     width: 100%;
     height: 1rem;
-    background-color: blue;
-
 }
 .bottom_left{
     margin-top: 0.1rem;
@@ -70,8 +68,9 @@ export default {
 }
 
 .right{
+    margin-top: 0.1rem;
     width: 76%;
-    background-color: red;
+    /*background-color: red;*/
     height: 3rem;
 }
 </style>

@@ -47,10 +47,13 @@
                     </div>
                 </div>
                 <div class="line_chart">
-
+                    <div class="chart" id="hop"></div>
+                    <div class="chart" id="delay"></div>
+                    <div class="chart" id="power"></div>
                 </div>
                 <div class="graph_chart">
-                    <div style="margin-top: 300px;width: 500px;height: 100px" id="graph1"></div>
+                    <div style="margin-top: 300px;width:80%;height: 100px" id="graph1"></div>
+                    <div style="width:80%;height: 100px" id="graph2"></div>
                 </div>
             </div>
         </div>
@@ -64,23 +67,25 @@ export default {
         return{
             value:0,
             values:[1,2,3,4,5,6],
-            nodes: [1,2,3,4,5,6,7]
+            nodes:{
+                init_nodes: [],
+                current_nodes:[],
+            },
+            countData: {
+                data1: [],
+                data2: []
+            }
         }
     },
     methods:{
-        echartsInit(nodes){
-            // if (document.getElementById('grahp1') == null) {
-            //     return
-            // }
-            // this.$echarts.dispose(document.getElementById('graph1'))
-            var myChart = this.$echarts.init(document.getElementById('graph1'));
+        echartsInit(nodes,elementId){
+            var myChart = this.$echarts.init(document.getElementById(elementId));
             //配置图表
             const axisData = nodes;
             const data = axisData.map(function (item, i) {
-              // return Math.round(Math.random() * 1000 * (i + 1));
+                // return Math.round(Math.random() * 1000 * (i + 1));
                 return i%2?1:0
             });
-            // const data = [1,Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()]
             const links = data.map(function (item, i) {
                 return {
                     source: i,
@@ -93,7 +98,8 @@ export default {
                     type: 'category',
                     boundaryGap: false,
                     data: axisData,
-                    show:false
+                    show:false,
+                    // inverse:true
                 },
                 yAxis: {
                     type: 'value',
@@ -110,25 +116,111 @@ export default {
                         },
                         edgeSymbol: ['circle', 'arrow'],
                         edgeSymbolSize: [4, 10],
-                        itemStyle:{
-                            color:'lightgreen'
-                        },
+                        // itemStyle:{
+                        //     color:'lightgreen'
+                        // },
                         data: data,
                         links: links,
-                        lineStyle: {
-                            color: 'white'
+                        itemStyle: {
+                            color: function(params){
+                                var colorList = ['skyblue','purple','lightgreen','yellow']
+                                return colorList[params.dataIndex%4]
+                            }
+                        },
+                        animationDuration: function (idx) {
+                            // 越往后的数据时长越大
+                            return idx * 400;
                         }
                     }
                 ]
             };
             myChart.setOption(option);
         },
+        echartsInit2(elementid,data,lineColor,nodeColor,bgColor){
+            if (document.getElementById(elementid) == null) {
+                return
+            }
+            this.$echarts.dispose(document.getElementById(elementid))
+            var myChart = this.$echarts.init(document.getElementById(elementid));
+            var option = {
+                xAxis: {
+                    type: 'category',
+                    //最多容纳
+                    data: [1,2,3,4,5,6,7,8,9,10,11,12],
+                    show: false
+                },
+                yAxis: {
+                    type: 'value',
+                    show: false
+                },
+                animation:false,
+                series: [
+                    {
+                        data: data,
+                        type: 'line',
+                        smooth: 0.3,
+                        lineStyle:{
+                            // color:'#366BA9'
+                            color:lineColor
+                        },
+                        symbol:'circle',
+                        symbolSize:[10,5],
+                        itemStyle:{
+                            color:nodeColor
+                        },
+                        areaStyle: {
+                            opacity: 0.8,
+                            color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                {
+                                    offset: 0,
+                                    color: bgColor
+                                },
+                                {
+                                    offset: 1,
+                                    color: '#07163F'
+                                }
+                            ])
+                        }
+                    }
+                ],
+                grid: {
+                    // containLabel: true,
+                    top:"3",
+                    left:"0",
+                    bottom:"3",
+                    right:'0'
+                },
+            };
+            myChart.setOption(option)
+        },
         test(value){
             console.log(value)
+        },
+        graphInitAll(){
+            this.echartsInit(this.nodes.init_nodes,'graph1')
+            this.echartsInit(this.nodes.current_nodes,'graph2')
+         },
+        lineInitAll(){
+            this.echartsInit2('hop',this.countData.data1,'#366BA9','#269BFF','#194585')
+            this.echartsInit2('delay',this.countData.data2,'#17FEB8','#1EFDB8','#106668')
+            this.echartsInit2('power',this.countData.data1,'#366BA9','#269BFF','#194585')
+        }
+    },
+    sockets: {
+        /* 监听消息事件 */
+        nodes:function(data){
+            // console.log("data 数据返回 = >", data);
+            this.nodes = data;
+            this.graphInitAll()
+        },
+        countData:function (data) {
+            this.countData = data;
+            this.lineInitAll()
         }
     },
     mounted() {
-        this.echartsInit(this.nodes)
+        this.graphInitAll()
+        this.lineInitAll()
     }
 }
 </script>
@@ -157,7 +249,7 @@ export default {
     float: left;
     margin-left: 0.2rem;
     margin-top: 0.2rem;
-    width: 85%;
+    width: 80%;
     height: 100%;
     /*background-color: yellow;*/
 }
@@ -182,83 +274,19 @@ i{
     width: 30%;
 }
 .graph_chart{
+    margin-top: -80%;
     width: 100%;
 }
-
-/*.el-select,*/
-/*.el-select-dropdown,*/
-/*.el-scrollbar,*/
-/*.el-select-dropdown__wrap,*/
-/*.el-scrollbar__view,*/
-/*.el-select-dropdown__item:hover {*/
-/*    background-color: #baf;*/
-/*}*/
-
-</style>
-<style lang="scss">
-$focus_color: #3296E1;
-.statictis-select{
-    /deep/.el-input__inner{
-        background-color: #112E49;
-        color: #ffffff
-    }
-    .el-input__inner{
-        border-color: $focus_color;
-    }
-
-    &:hover .el-input__inner{
-        border-color: $focus_color;
-    }
-
-    &-popper{
-        border: 1px solid $focus_color;
-        border-radius: 4px;
-        overflow: hidden;
-
-        &[x-placement^=bottom]{
-            margin-top: 4px;
-        }
-
-        .el-scrollbar{
-            background-color: #112E49;
-        }
-
-        .el-select-dropdown__item{
-            height: 26px;
-            line-height: 26px;
-            padding: 0 12px;
-            font-size: 12px;
-            color: #ffffff;
-            position: relative;
-            text-align: center;
-        }
-        .el-select-dropdown__item::after{
-            content: '';
-            display: block;
-            position: absolute;
-            bottom: 0;
-            left: 10px;
-            width: calc(100% - 20px);
-            height: 1px;
-            //background-image: url(../../assets/images/horizontal_line.png);
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .el-select-dropdown__item:last-child::after{
-            display: none;
-        }
-
-        .el-select-dropdown__item.selected{
-            color: $focus_color;
-        }
-        .el-select-dropdown__item.hover{
-            background-color: #112E49;
-            color: $focus_color;
-        }
-        .popper__arrow{
-            display: none;
-        }
-    }
+.line_chart{
+    margin-top: 10%;
+    margin-left: -10%;
+    width: 100%;
+    height: 900px;
+}
+.chart{
+    width: 100%;
+    margin-left: 5%;
+    height: 8.5%;
+    margin-top:0.2rem;
 }
 </style>

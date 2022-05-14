@@ -17,5 +17,7 @@ export default {
 
 <style>
 @import "assets/css/public.css";
-
+#app{
+    overflow-y: hidden;
+}
 </style>

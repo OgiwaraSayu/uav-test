@@ -1,38 +1,74 @@
 <template>
     <div>
         <div class="left">
-            <el-menu
-                default-active="1"
-                class="el-menu-vertical-demo"
-                style="height: 3.85rem;"
-                background-color="#545c64"
-                text-color="#fff"
-                active-text-color="#ffd04b">
-                <el-menu-item index="1">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">
-                        <router-link to="/node">
-                            导航一
-                        </router-link>
-                    </span>
-                </el-menu-item>
-                <el-menu-item index="2">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">
-                        <router-link to="/data">
-                            导航二
-                        </router-link>
-                    </span>
-                </el-menu-item>
-                <el-menu-item index="3" disabled>
-                    <i class="el-icon-document"></i>
-                    <span slot="title">导航三</span>
-                </el-menu-item>
-                <el-menu-item index="4">
-                    <i class="el-icon-setting"></i>
-                    <span slot="title">导航四</span>
-                </el-menu-item>
-            </el-menu>
+            <div style="height: 3.85rem;background-color: black">
+                <div class="menu" style="margin-top: 0">
+                    <div class="title">
+                        <p>全网动态</p>
+                        <p>拓扑</p>
+                    </div>
+                </div>
+                <div class="menu">
+                    <router-link to="/node" active-class="">
+                        <div class="title">
+                            <p>节点状态</p>
+                            <p>驾驶舱</p>
+                        </div>
+                    </router-link>
+                </div>
+                <div class="menu">
+                    <router-link to="/data">
+                        <div class="title">
+                            <p>数据流状态</p>
+                            <p>驾驶舱</p>
+                        </div>
+                    </router-link>
+                </div>
+                <div class="menu">
+                    <router-link to="/service">
+                        <div class="title">
+                            <p>数据业务</p>
+                            <p>接入</p>
+                        </div>
+                    </router-link>
+                </div>
+            </div>
+<!--            <el-menu-->
+<!--                default-active="1"-->
+<!--                class="el-menu-vertical-demo"-->
+<!--                style="height: 3.85rem"-->
+<!--                background-color="black"-->
+<!--                text-color="white"-->
+<!--                active-text-color="#ffd04b">-->
+<!--                <router-link to="/node">-->
+<!--                    <el-menu-item index="1">-->
+<!--&lt;!&ndash;                        <i class="el-icon-menu"></i>&ndash;&gt;-->
+<!--                        <span slot="title" style="font-size: 0.1rem;color: white">-->
+<!--                            节点状态驾驶舱-->
+<!--                        </span>-->
+<!--                    </el-menu-item>-->
+<!--                </router-link>-->
+<!--                <el-menu-item index="2">-->
+<!--                    <i class="el-icon-menu"></i>-->
+<!--                    <span slot="title">-->
+<!--                        <router-link to="/data">-->
+<!--                            导航二-->
+<!--                        </router-link>-->
+<!--                    </span>-->
+<!--                </el-menu-item>-->
+<!--                <el-menu-item index="3" disabled>-->
+<!--                    <i class="el-icon-document"></i>-->
+<!--                    <span slot="title">导航三</span>-->
+<!--                </el-menu-item>-->
+<!--                <el-menu-item index="4">-->
+<!--                    <i class="el-icon-setting"></i>-->
+<!--                    <span slot="title">-->
+<!--                        <router-link to="/service">-->
+<!--                            导航四-->
+<!--                        </router-link>-->
+<!--                    </span>-->
+<!--                </el-menu-item>-->
+<!--            </el-menu>-->
             <!--                @open="handleOpen"-->
             <!--                @close="handleClose"-->
 <!--            <router-link to="/node" style="font-size: 0.1rem">1</router-link>-->
@@ -83,9 +119,31 @@ export default {
 .left{
     float: left;
     width: 10%;
+    border-right: 1px white solid;
+
+}
+.menu{
+    margin-top: 5%;
+    height: 8%;
+    color: white;
+    font-size: 0.08rem;
+    text-align: center;
+    border: solid 1px skyblue;
+    background-color: #073162;
+    margin-right: 1px;
+}
+a{
+    color: #fff;
+
+}
+a.router-link-exact-active{
+    color: deepskyblue;
+}
+.title{
+    margin-top: 5%;
 }
 .right{
     float: left;
-    width: 90%;
+    width: 89%;
 }
 </style>

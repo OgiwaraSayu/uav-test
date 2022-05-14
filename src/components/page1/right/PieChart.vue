@@ -6,9 +6,9 @@
             <div class="font">发送速率</div>
         </div>
         <div class="right">
-            <div class="chart2" style="margin-top: 10%" id="pie1"></div>
+            <div class="chart" style="margin-top: 10%" id="pie1"></div>
             <div class="chart2" id="pie2"></div>
-            <div class="chart2" id="pie3"></div>
+            <div class="chart" id="pie3"></div>
         </div>
 
     </div>
@@ -79,6 +79,7 @@ export default {
                             }
                         },
                     ],
+                     animation:false,
                     series: [
                         {
                             type: 'gauge',
@@ -142,70 +143,64 @@ export default {
             var myChart = this.$echarts.init(document.getElementById('pie2'));
             //配置图表
             var option = {
-                series: [
-                    {
-                        itemStyle: {
-                            normal: {
-                                borderWidth: 1,//边际线大小
-                                borderColor:'#00ffff',//边界线颜色
-                                areaColor:'#09295b'//默认区域颜色
-                            },
-                        },
-                        name: 'Pressure',
-                        type: 'gauge',
-                        //进度条
-                        progress: {
-                            show: true,
-                            itemStyle:{
-                                color:'#3AC0A4'
-                            },
-                            roundCap:true,
-                            width:3
-                        },
-                        //分割线
-                        splitLine: {
-                            show: false
-                        },
-                        min:0,
-                        max:36,
-                        //刻度
-                        axisTick: {
-                            show: false,
-                        },
-                        //刻度标签
-                        axisLabel: {
-                            show: false,
-                            // formatter: '{value}'
-                        },
-                        pointer:{
-                            show:false,
-                        },
-                        axisLine: {
-                            lineStyle: {
-                              // color: [[1, '#000']],
-                              width: 3
-                            }
-                        },
-                        anchor:{
-                            show: true,
-                            offsetCenter: ['0', "-10"],
-                            icon:"image://https://cdn3.iconfinder.com/data/icons/social-messaging-ui-color-line/254000/167-512.png",
-                            size:25
-                        },
-                        data: [
-                            {
-                                value: data,
-                            }
-                        ],
-                        detail:{
-                            fontSize: 15,
-                            textStyle:{
-                                color:'#3AC0A4'
-                            }
-                        },
-                        animation: true
-                    }
-                ]
+                series: [{
+                    name: '',
+                    type: 'gauge',
+                    radius:'100%',
+                    splitLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false,
+                        // formatter: '{value}'
+                    },
+                    pointer:{
+                        show:false,
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    anchor:{
+                        show: true,
+                        offsetCenter: ['0', "-10"],
+                        icon:"image://https://cdn3.iconfinder.com/data/icons/social-messaging-ui-color-line/254000/167-512.png",
+                        size:30
+                    },
+                    detail: {
+                        formatter: '{value}',
+                        textStyle:{
+                            fontSize:20,
+                            color:'#30D27C'
+                        }
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: [
+                                [1,new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    // {
+                                    // offset: 0.1,
+                                    // color: "#FFC600"
+                                    // },
+                                    {
+                                        offset: 0.6,
+                                        color: "#30D27C"
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: "#0B95FF"
+                                    }
+                                ])
+                                ]
+                            ]
+                        }
+                    },
+                    data: [
+                        {
+                            value: data,
+                        }
+                    ]
+                }]
             };
             myChart.setOption(option);
         },
@@ -217,6 +212,7 @@ export default {
             var myChart = this.$echarts.init(document.getElementById('pie3'));
             //配置图表
             var option = {
+                animation:false,
                 series: [
                     {
                         name: '发送速率',
@@ -279,10 +275,16 @@ export default {
     width: 100%;
     height: 100%;
 }
-.chart2{
+.chart{
     margin-left: 10%;
     margin-top: -5%;
     width: 70%;
+    height: 33%;
+}
+.chart2{
+    margin-left: 20%;
+    margin-top: -5%;
+    width: 50%;
     height: 33%;
 }
 .left{
