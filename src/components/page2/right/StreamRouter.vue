@@ -274,14 +274,15 @@ i{
     width: 30%;
 }
 .graph_chart{
-    margin-top: -80%;
+    margin-top: -95%;
     width: 100%;
+/*    重构前后 入网时间 频段号*/
 }
 .line_chart{
     margin-top: 10%;
     margin-left: -10%;
     width: 100%;
-    height: 900px;
+    height: 700px;
 }
 .chart{
     width: 100%;

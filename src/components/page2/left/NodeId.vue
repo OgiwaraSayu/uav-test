@@ -13,7 +13,8 @@
             <p style="text-align: center;background-color: purple;color: yellow">
 <!--                {{noteId}}-->
                 <select class="select"
-                        onmousedown="if(this.options.length>3){this.size=6} this.size=0"
+                        onmousedown="if(this.options.length>3){this.size=6}"
+                        onchange="this.size=0"
                         @change="getNodeInformation(defaultValue);"
                         v-model="defaultValue"
                 >

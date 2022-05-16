@@ -3,13 +3,15 @@
         <div class="left">
             <div style="height: 3.85rem;background-color: black">
                 <div class="menu" style="margin-top: 0">
-                    <div class="title">
-                        <p>全网动态</p>
-                        <p>拓扑</p>
-                    </div>
+                    <router-link to="/topological">
+                        <div class="title">
+                            <p>全网动态</p>
+                            <p>拓扑</p>
+                        </div>
+                    </router-link>
                 </div>
                 <div class="menu">
-                    <router-link to="/node" active-class="">
+                    <router-link to="/node">
                         <div class="title">
                             <p>节点状态</p>
                             <p>驾驶舱</p>
@@ -102,16 +104,6 @@ export default {
     //         console.log("welcome data 数据返回 = >", data);
     //     },
     // },
-    // methods: {
-    //     /* 登录 */
-    //     login(id){
-    //         console.log("chat message",this.username[id-1]);
-    //         /* 发送数据到服务器 */
-    //         this.$socket.emit('chat message',this.username[id-1]);
-    //         // this.isLogin=true;
-    //         this.msgList.push({type:'',msg:this.username[id-1]+'登录成功'});
-    //     },
-    // }
 }
 </script>
 

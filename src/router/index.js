@@ -9,7 +9,7 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect:'/node',
+            redirect:'/topological',
             component: () => import('../pages/MainPage'),
             children:[
                 {
@@ -23,6 +23,10 @@ export default new Router({
                 {
                     path: '/service',
                     component: () => import('../pages/DataService')
+                },
+                {
+                    path: '/topological',
+                    component: () => import('../pages/TopologicalGraph')
                 }
             ]
         },
