@@ -26,7 +26,7 @@ export default new Router({
                 },
                 {
                     path: '/topological',
-                    component: () => import('../pages/TopologicalGraph')
+                    component: () => import('../pages/Topological')
                 }
             ]
         },

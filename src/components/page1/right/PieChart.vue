@@ -163,7 +163,7 @@ export default {
                     anchor:{
                         show: true,
                         offsetCenter: ['0', "-10"],
-                        icon:"image://https://cdn3.iconfinder.com/data/icons/social-messaging-ui-color-line/254000/167-512.png",
+                        icon:"image://"+require('@/assets/images/clock.png'),
                         size:30
                     },
                     detail: {
