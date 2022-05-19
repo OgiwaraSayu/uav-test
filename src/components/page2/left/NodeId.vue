@@ -20,6 +20,7 @@
                 >
                     <option v-for="item in ids"
                             :key="item"
+                            :disabled="item === defaultValue2"
                             :value="item"
                     >{{item}}</option>
                 </select>
@@ -27,7 +28,18 @@
         </div>
         <div class="box">
             <p>数据流目的节点ID</p>
-            <p style="text-align: center;background-color: green;color: yellow">9</p>
+            <select class="select"
+                    style="background-color: darkolivegreen"
+                    onmousedown="if(this.options.length>3){this.size=6}"
+                    onchange="this.size = 0 "
+                    v-model="defaultValue2"
+            >
+                <option v-for="item in ids"
+                        :disabled="item === defaultValue"
+                        :key="item"
+                        :value="item"
+                >{{item}}</option>
+            </select>
         </div>
     </div>
 </template>
@@ -40,6 +52,7 @@ export default {
             // noteId:this.$global.defaultId,
             ids:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
             defaultValue:this.$global.defaultId,
+            defaultValue2:this.$global.defaultTargetId,
             timer:'',
             width:50,
             switchValue:true

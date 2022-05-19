@@ -276,19 +276,19 @@ export default {
     height: 100%;
 }
 .chart{
-    margin-left: 10%;
+    margin-left: 15%;
     margin-top: -5%;
     width: 70%;
     height: 33%;
 }
 .chart2{
-    margin-left: 20%;
+    margin-left: 25%;
     margin-top: -5%;
     width: 50%;
     height: 33%;
 }
 .left{
-    width: 30%;
+    width: 20%;
     height: 100%;
     float: left;
 }
@@ -301,6 +301,6 @@ export default {
     color:#00B0E6;
     font-size: 0.07rem;
     margin-left: 0.1rem;
-    margin-top: 0.45rem;
+    margin-top: 0.4rem;
 }
 </style>

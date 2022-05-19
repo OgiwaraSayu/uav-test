@@ -36,9 +36,9 @@ export default {
             var myChart = this.$echarts.init(document.getElementById('load'));
             //配置图表
             // Generate data
-            let category = ['left','right'];
-            let max = [100,100];
-            let lineData = [data,data];
+            let category = ['left'];
+            let max = [100];
+            let lineData = [data];
             // option
             var option = {
                 // backgroundColor: '#0f375f',
@@ -170,9 +170,9 @@ export default {
 }
 .chart{
     width: 0.2rem;
-    height: 1rem;
-    margin-top: -0.15rem;
-    margin-left: 0.38rem;
+    height: 1.1rem;
+    margin-top: -0.25rem;
+    margin-left: 0.37rem;
     float: left
 }
 </style>
