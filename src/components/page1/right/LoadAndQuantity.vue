@@ -7,7 +7,7 @@
             </div>
             <div class="font" style="color: red">
                 <p>电量</p>
-                <p>{{powerData.data2}}%</p>
+                <p>{{powerData.data2.toFixed(0)}}%</p>
             </div>
         </div>
         <div class="clear"></div>
@@ -146,7 +146,8 @@ export default {
         /* 监听消息事件 */
         powerData:function(data){
             console.log("data 数据返回 = >", data);
-            this.powerData = data;
+            this.powerData.data1 = data.data1;
+            this.powerData.data2 = data.data2*100;
             this.echartsInitAll()
         },
     },

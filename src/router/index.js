@@ -30,10 +30,10 @@ export default new Router({
                 }
             ]
         },
-        // {
-        //     path: '/hello',
-        //     component: () => import('../components/test')
-        // },
+        {
+            path: '/test',
+            component: () => import('../components/test')
+        },
 
     ]
 })

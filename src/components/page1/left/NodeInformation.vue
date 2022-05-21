@@ -1,14 +1,14 @@
 <template>
     <div class="node">
         <div class="top_left">
-            <el-switch
-                v-model="switchValue"
-                active-text="定时器开"
-                style="position: absolute;margin-left:0.55rem;margin-top: -0.15rem"
-                :width="width"
-                @change = "switch_on_off(switchValue)"
-            >
-            </el-switch>
+<!--            <el-switch-->
+<!--                v-model="switchValue"-->
+<!--                active-text="定时器开"-->
+<!--                style="position: absolute;margin-left:0.55rem;margin-top: -0.15rem"-->
+<!--                :width="width"-->
+<!--                @change = "switch_on_off(switchValue)"-->
+<!--            >-->
+<!--            </el-switch>-->
             <p style="margin-left: 0">节点ID</p>
 <!--            <p style="text-align: center;background-color: purple">-->
 <!--                <el-select v-model="defaultValue" @change="getData(defaultValue)"-->
@@ -24,7 +24,7 @@
 <!--                </el-select>-->
             <select class="select"
                     onmousedown="if(this.options.length>3){this.size=6}"
-                    onchange="this.size=0"
+                        onchange="this.size=0"
                     @change="getNodeInformation(defaultValue);"
                     v-model="defaultValue"
             >
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-// import {getData} from "../../../../config/api";
+// import {request} from "../../../../config/api";
 
 export default {
     name: "NodeInformation",
@@ -76,17 +76,10 @@ export default {
             switchValue:true
         }
     },
-    // mounted(){
-    //     this.data.id = 6;
-    //     this.data.nodeCharacter = '簇头';
-    //     this.data.time = 123.45;
-    //     this.data.frequency = 4;
-    //     this.data.cluster = 2;
-    // },
     sockets: {
         /* 监听welcome事件 */
         nodeInformation:function(data){
-            console.log("data 数据返回 = >", data);
+            // console.log("nodeInformation = >", data);
             this.data = data;
         },
     },
@@ -98,6 +91,13 @@ export default {
             // /* 发送数据到服务器 */
             this.$socket.emit('get page1 data',id);
         },
+        // getNodeInformation(){
+        //     var url ='/nodeInformation'
+        //     request(url).then(res =>{
+        //         this.data = res.data
+        //         this.defaultValue = this.data.id
+        //     })
+        // },
         switch_on_off(switchValue){
             if(switchValue){
                 this.timer = setInterval(()=>{
@@ -113,14 +113,14 @@ export default {
         this.getNodeInformation(this.defaultValue)
     },
     mounted() {
-        if(this.timer){
-            clearInterval(this.timer)
-        }
-        else {
-            this.timer = setInterval(()=>{
-                this.getNodeInformation(this.defaultValue)
-            },2000)
-        }
+        // if(this.timer){
+        //     clearInterval(this.timer)
+        // }
+        // else {
+        //     this.timer = setInterval(()=>{
+        //         this.getNodeInformation(this.defaultValue)
+        //     },2000)
+        // }
     },
     destroyed() {
         clearInterval(this.timer)

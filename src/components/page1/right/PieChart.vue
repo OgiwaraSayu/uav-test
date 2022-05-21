@@ -257,7 +257,9 @@ export default {
         /* 监听消息事件 */
         pieData:function(data){
             // console.log("data 数据返回 = >", data);
-            this.pieData = data;
+            this.pieData.data1 = data.data1;
+            this.pieData.data2 = parseInt(data.data2);
+            this.pieData.data3 = data.data3;
             this.echartsInitAll()
         },
     },

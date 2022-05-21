@@ -19,7 +19,25 @@ export default {
         return{
             relayData:{
                 data1: [],
-                data2: []
+                data2: [],
+                data3: [],
+                data4: [],
+                data5: [],
+                data6: [],
+                data7: [],
+                data8: [],
+                data9: [],
+            },
+            relayTempData:{
+                data1: [],
+                data2: [],
+                data3: [],
+                data4: [],
+                data5: [],
+                data6: [],
+                data7: [],
+                data8: [],
+                data9: [],
             },
         }
     },
@@ -82,21 +100,22 @@ export default {
         },
         echartsInitAll(){
             this.echartsInit('delay1',this.relayData.data1,'#366BA9','#269BFF','#194585')
-            this.echartsInit('delay3',this.relayData.data1,'#366BA9','#269BFF','#194585')
-            this.echartsInit('delay5',this.relayData.data1,'#366BA9','#269BFF','#194585')
-            this.echartsInit('delay7',this.relayData.data1,'#366BA9','#269BFF','#194585')
-            this.echartsInit('delay9',this.relayData.data1,'#366BA9','#269BFF','#194585')
+            this.echartsInit('delay3',this.relayData.data3,'#366BA9','#269BFF','#194585')
+            this.echartsInit('delay5',this.relayData.data5,'#366BA9','#269BFF','#194585')
+            this.echartsInit('delay7',this.relayData.data7,'#366BA9','#269BFF','#194585')
+            this.echartsInit('delay9',this.relayData.data9,'#366BA9','#269BFF','#194585')
             this.echartsInit('delay2',this.relayData.data2,'#17FEB8','#1EFDB8','#106668')
-            this.echartsInit('delay4',this.relayData.data2,'#17FEB8','#1EFDB8','#106668')
-            this.echartsInit('delay6',this.relayData.data2,'#17FEB8','#1EFDB8','#106668')
-            this.echartsInit('delay8',this.relayData.data2,'#17FEB8','#1EFDB8','#106668')
-        }
+            this.echartsInit('delay4',this.relayData.data4,'#17FEB8','#1EFDB8','#106668')
+            this.echartsInit('delay6',this.relayData.data6,'#17FEB8','#1EFDB8','#106668')
+            this.echartsInit('delay8',this.relayData.data8,'#17FEB8','#1EFDB8','#106668')
+        },
     },
     sockets: {
         /* 监听消息事件 */
         relayData:function(data){
             // console.log("data 数据返回 = >", data);
             this.relayData = data;
+            console.log('relay'+this.relayData)
             this.echartsInitAll()
         },
     },
