@@ -139,9 +139,9 @@
                 </tr>
             </table>
         </div>
-        <div style="margin-top: -220px;">
-            <button @click="test">测试</button>
-        </div>
+<!--        <div style="margin-top: -220px;">-->
+<!--            <button @click="test">测试</button>-->
+<!--        </div>-->
     </div>
 </template>
 
@@ -150,18 +150,33 @@ export default {
     name: "NewGraph",
     data(){
         return{
-           testData:[1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0]
+            data:{
+                count:'',
+                node_four:[],
+                node_twenty:[]
+            }
         }
     },
+    sockets: {
+        /* 监听消息事件 */
+        newdata:async function(data){
+            // console.log("data 数据返回 = >", data);
+            this.data = data
+            // await console.log(this.data)
+            this.getColor(data.node_four,'table1')
+            this.getColor(data.node_twenty,'table2')
+            this.echartsInit(data.count)
+        },
+    },
     methods:{
-        echartsInit() {
+        echartsInit(data) {
             var myChart = this.$echarts.init(document.getElementById("percentage"));
             var option = {
                 title: {
-                    text: '入网节点占比',
+                    text: '全网一跳一秒入网节点数比例',
                     left: 'center'
                 },
-                animation:false,
+                animation:500,
                 series: [
                     {
                         //禁止hover
@@ -170,10 +185,10 @@ export default {
                         type: 'pie',
                         radius: '50%',
                         data: [
-                            { value: 25, name: '入网节点占比',itemStyle:{
+                            { value: data, name: '入网',itemStyle:{
                                     color:'yellow'
                                 } },
-                            { value: 75, name: '未入网节占比',itemStyle:{
+                            { value: 1-data, name: '未入网',itemStyle:{
                                     color:'green'
                                 }},
                         ],
@@ -182,21 +197,18 @@ export default {
             };
             myChart.setOption(option)
         },
-        test(){
-            var table = document.getElementById("table1")
-            // table.rows[0].cells[0].style.backgroundColor='red'
-            // console.log(table.rows[0].cells[0].innerText)
-            this.testData.push(this.testData.shift())
-            for(let i = 0; i < this.testData.length; i++){
+        getColor(data,elementid){
+            var table = document.getElementById(elementid)
+            for(let i = 0; i < 32; i++){
                 if(i < 16){
-                    if(this.testData[i] === 1){
+                    if(data[i] === 1){
                         table.rows[i].cells[0].style.backgroundColor = 'red'
                     }else {
                         table.rows[i].cells[0].style.backgroundColor = 'white'
                     }
                 }
                 else {
-                    if(this.testData[i] === 1){
+                    if(data[i] === 1){
                         table.rows[i-16].cells[1].style.backgroundColor = 'red'
                     }else {
                         table.rows[i-16].cells[1].style.backgroundColor = 'white'

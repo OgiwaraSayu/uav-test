@@ -10,6 +10,19 @@
 <script>
 export default {
     name: "DataRoutes",
+    data(){
+        return{
+            nodes:[],
+        }
+    },
+    sockets: {
+        /* 监听消息事件 */
+        nodes:function(data){
+            // console.log("data 数据返回 = >", data);
+            this.nodes = data.current_nodes;
+            this.echartsInit()
+        },
+    },
     methods:{
         echartsInit(){
             // if (document.getElementById('grahp1') == null) {
@@ -18,7 +31,7 @@ export default {
             // this.$echarts.dispose(document.getElementById('graph1'))
             var myChart = this.$echarts.init(document.getElementById('graph'));
             //配置图表
-            const axisData = [1,2,3,4,5,6,7];
+            const axisData = this.nodes;
             const data = axisData.map(function (item, i) {
                 // return Math.round(Math.random() * 1000 * (i + 1));
                 return i%2?1:0
@@ -74,9 +87,7 @@ export default {
             myChart.setOption(option)
         },
     },
-    mounted() {
-        this.echartsInit()
-    }
+
 }
 </script>
 

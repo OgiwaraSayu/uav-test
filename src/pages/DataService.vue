@@ -15,7 +15,7 @@
                 <p class="font">需接入的业务数据输入</p>
                 <textarea v-model="inputData"></textarea>
                 <div style="margin-left: 0.3rem;margin-top: -1rem;width:100%">
-                    <el-button class="button" type="success" @click="test" plain>输入</el-button>
+                    <el-button class="button" type="success" @click="submit" plain>输入</el-button>
                     <el-button class="button" type="info" @click="clear" plain>清空</el-button>
                 </div>
 
@@ -41,7 +41,7 @@ export default {
     data(){
         return{
             inputData:'',
-            outputData:'123',
+            outputData:'',
             nullValue:'',
             tempValue:''
         }
@@ -56,12 +56,21 @@ export default {
         hidden(){
             this.outputData = this.nullValue;
         },
-        test(){
-            console.log(this.inputData)
-            console.log(this.outputData)
-        }
+        pass(){
+            this.outputData = this.inputData;
+        },
+        async submit(){
+            this.tempValue = this.inputData
+            setTimeout(this.pass,3000)
+            // await this.pass()
+        },
+        getNodeInformation(){
+            // /* 发送数据到服务器 */
+            this.$socket.emit('get page1 data',this.$global.defaultId,this.$global.defaultTargetId);
+        },
     },
     created() {
+        this.getNodeInformation()
         this.tempValue = this.outputData
     }
 }

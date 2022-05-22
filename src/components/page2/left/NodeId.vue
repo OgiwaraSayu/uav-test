@@ -1,17 +1,7 @@
 <template>
     <div class="id">
         <div class="box">
-<!--            <el-switch-->
-<!--                v-model="switchValue"-->
-<!--                active-text="定时器开"-->
-<!--                style="position: absolute;margin-left:0.15rem;margin-top: -0.15rem"-->
-<!--                :width="width"-->
-<!--                @change = "switch_on_off(switchValue)"-->
-<!--            >-->
-<!--            </el-switch>-->
-            <p>数据流源节点ID</p>
             <p style="text-align: center;background-color: purple;color: yellow">
-<!--                {{noteId}}-->
                 <select class="select"
                         onmousedown="if(this.options.length>3){this.size=6}"
                         onchange="this.size=0"
@@ -61,39 +51,16 @@ export default {
     },
     methods:{
         getNodeInformation(id){
-            console.log(id)
-            console.log("get page2 data",id);
+            // console.log(id)
+            // console.log("get data",id);
             this.$global.defaultId=id;
             this.$global.defaultTargetId = this.defaultValue2
             // /* 发送数据到服务器 */
-            this.$socket.emit('get page2 data',id,this.defaultValue2);
+            this.$socket.emit('get page1 data',id,this.defaultValue2);
         },
-        switch_on_off(switchValue){
-            if(switchValue){
-                this.timer = setInterval(()=>{
-                    this.getNodeInformation(this.defaultValue)
-                },2000)
-            }else {
-                clearInterval(this.timer)
-            }
-        }
-    },
-    mounted() {
-        // if(this.timer){
-        //     clearInterval(this.timer)
-        // }
-        // else {
-        //     this.timer = setInterval(()=>{
-        //         this.getNodeInformation(this.defaultValue)
-        //     },2000)
-        // }
-    },
-    destroyed() {
-        clearInterval(this.timer)
     },
     created() {
-        this.noteId = this.$global.defaultId;
-        this.getNodeInformation(this.noteId)
+        this.getNodeInformation(this.defaultValue)
     }
 }
 </script>

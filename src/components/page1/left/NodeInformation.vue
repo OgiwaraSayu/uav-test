@@ -1,27 +1,7 @@
 <template>
     <div class="node">
         <div class="top_left">
-<!--            <el-switch-->
-<!--                v-model="switchValue"-->
-<!--                active-text="定时器开"-->
-<!--                style="position: absolute;margin-left:0.55rem;margin-top: -0.15rem"-->
-<!--                :width="width"-->
-<!--                @change = "switch_on_off(switchValue)"-->
-<!--            >-->
-<!--            </el-switch>-->
             <p style="margin-left: 0">节点ID</p>
-<!--            <p style="text-align: center;background-color: purple">-->
-<!--                <el-select v-model="defaultValue" @change="getData(defaultValue)"-->
-<!--                           :popper-append-to-body="false"-->
-<!--                           class="select"-->
-<!--                           style="">-->
-<!--                    <el-option-->
-<!--                        v-for="item in ids"-->
-<!--                        :key="item"-->
-<!--                        :value="item"-->
-<!--                        :label="item">-->
-<!--                    </el-option>-->
-<!--                </el-select>-->
             <select class="select"
                     onmousedown="if(this.options.length>3){this.size=6}"
                         onchange="this.size=0"
@@ -33,7 +13,6 @@
                         :value="item"
                 >{{item}}</option>
             </select>
-<!--            </p>-->
         </div>
         <div class="top_right">
             <p>节点角色</p>
@@ -56,7 +35,6 @@
 </template>
 
 <script>
-// import {request} from "../../../../config/api";
 
 export default {
     name: "NodeInformation",
@@ -85,19 +63,12 @@ export default {
     },
     methods:{
         getNodeInformation(id){
-            console.log(id)
-            console.log("get page1 data",id);
+            // console.log(id)
+            // console.log("get data",id);
             this.$global.defaultId=id;
             // /* 发送数据到服务器 */
-            this.$socket.emit('get page1 data',id);
+            this.$socket.emit('get page1 data',id,this.$global.defaultTargetId);
         },
-        // getNodeInformation(){
-        //     var url ='/nodeInformation'
-        //     request(url).then(res =>{
-        //         this.data = res.data
-        //         this.defaultValue = this.data.id
-        //     })
-        // },
         switch_on_off(switchValue){
             if(switchValue){
                 this.timer = setInterval(()=>{
@@ -112,19 +83,6 @@ export default {
         this.defaultValue = this.$global.defaultId;
         this.getNodeInformation(this.defaultValue)
     },
-    mounted() {
-        // if(this.timer){
-        //     clearInterval(this.timer)
-        // }
-        // else {
-        //     this.timer = setInterval(()=>{
-        //         this.getNodeInformation(this.defaultValue)
-        //     },2000)
-        // }
-    },
-    destroyed() {
-        clearInterval(this.timer)
-    }
 }
 </script>
 

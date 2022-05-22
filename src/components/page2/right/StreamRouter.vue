@@ -72,8 +72,9 @@ export default {
                 current_nodes:[],
             },
             countData: {
-                data1: [],
-                data2: []
+                delay: [],
+                jump: [],
+                power:[]
             }
         }
     },
@@ -201,9 +202,9 @@ export default {
             this.echartsInit(this.nodes.current_nodes,'graph2')
          },
         lineInitAll(){
-            this.echartsInit2('hop',this.countData.data1,'#366BA9','#269BFF','#194585')
-            this.echartsInit2('delay',this.countData.data2,'#17FEB8','#1EFDB8','#106668')
-            this.echartsInit2('power',this.countData.data1,'#366BA9','#269BFF','#194585')
+            this.echartsInit2('hop',this.countData.jump,'#366BA9','#269BFF','#194585')
+            this.echartsInit2('delay',this.countData.delay,'#17FEB8','#1EFDB8','#106668')
+            this.echartsInit2('power',this.countData.power,'#366BA9','#269BFF','#194585')
         }
     },
     sockets: {
@@ -213,7 +214,7 @@ export default {
             this.nodes = data;
             this.graphInitAll()
         },
-        countData:function (data) {
+        delay:function (data) {
             this.countData = data;
             this.lineInitAll()
         }
