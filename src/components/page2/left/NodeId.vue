@@ -1,7 +1,9 @@
 <template>
     <div class="id">
         <div class="box">
+            <p>数据流源节点ID</p>
             <p style="text-align: center;background-color: purple;color: yellow">
+<!--                {{noteId}}-->
                 <select class="select"
                         onmousedown="if(this.options.length>3){this.size=6}"
                         onchange="this.size=0"
