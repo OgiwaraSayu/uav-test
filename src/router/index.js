@@ -29,11 +29,7 @@ export default new Router({
                     component: () => import('../pages/Topological')
                 }
             ]
-        },
-        {
-            path: '/test',
-            component: () => import('../components/test')
-        },
+        }
 
     ]
 })

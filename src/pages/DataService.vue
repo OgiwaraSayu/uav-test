@@ -57,12 +57,12 @@ export default {
             this.outputData = this.nullValue;
         },
         pass(){
+            this.tempValue = this.inputData
             this.outputData = this.inputData;
         },
         async submit(){
-            this.tempValue = this.inputData
+            this.$socket.emit('data write',this.inputData);
             setTimeout(this.pass,3000)
-            // await this.pass()
         },
         getNodeInformation(){
             // /* 发送数据到服务器 */
